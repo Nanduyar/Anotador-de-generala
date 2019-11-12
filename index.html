@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Anotador para Generala</title>
+</head>
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<section class="title">
+		<h1>Generala</h1>
+	</section>
+	<nav id="barramenu" class="navegacion">
+		<ul class="menu">
+			<li class="first-item">
+				<a href="#barramenu" onclick="AddPlayers();OcultarAnotador();OcultarReglas();">
+					<img src="img/Jugar.png" alt="" class="imagen">
+					<span class="text-item" >Jugar</span>
+					<span class="down-item"></span>
+				</a>
+			</li>
+			<li>
+				<a href="#barramenu" onclick="MostrarReglas();">
+					<img src="img/Reglas.png" alt="" class="imagen">
+					<span class="text-item">Reglas</span>
+					<span class="down-item"></span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/Lideres.png" alt="" class="imagen">
+					<span class="text-item">Ganadores</span>
+					<span class="down-item"></span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<div id="reglas" style="display:none">
+		<h1>Reglas</h1><br>
+		<h4>ELEMENTOS DE JUEGO</h4><br>
+		<p>Se utilizarán cinco(5) dados y un cubilete</p><br>
+		<h4>COMIENZO</h4><br>
+		<p>Cada jugador arrojará un dado para determinar el orden del juego. El que obtenga el número más alto comenzará a jugar; continuará el jugador que se encuentre a su derecha. En caso 2 o más jugadores saquen el mismo numero y éste sea el mayor, deberán tirar dados nuevamente sólo los jugadores que sacaron los numeros mayores</p><br>
+		<h4>DEL JUEGO</h4><br>
+		<p>Las CATEGORIAS en el juego serán once (11): Números del uno (1) al seis (6) y los denominados Juegos Mayores (Escalera, Full, Poker, Generala, Doble Generala).</p><br>	
+		<h4>JUEGOS MAYORES</h4><br> 
+		<p>ESCALERA: Se formará cuando después  del  segundo  o  tercer  tiro  se  logre  una progresión de números.</p>
+		<p>Ejemplo 1:  1 - 2 - 3 - 4 - 5</p>
+		<p>Ejemplo 2:  1 - 3 - 4 - 5 - 6</p>
+		<p>Ejemplo 3:   3 - 4 - 5 - 6 - 1</p>
+		<p>Ejemplo 4:  2 - 3 - 4 - 5 - 6</p>
+		<p>Puntaje correspondiente: veinte (20) puntos. Servido: veinticinco (25).</p><br>
+		<p>FULL: Se formará cuando se logran tres (3) dados de un mismo número y un par (2) de otro número. Puntaje correspondiente: treinta (30) puntos. Servido: treinta y cinco (35). </p><br>
+		<p>POKER: Se formará cuando se logran cuatro (4) dados del mismo número. Puntaje correspondiente: cuarenta (40) puntos.Servido: cuarenta y cinco (45). </p><br>
+		<p>GENERALA: Se formará cuando los cinco (5) dados sean de un mismo número. Puntaje correspondiente  cincuenta  (50)  puntos.  Servida:  cincuenta  y  cinco  (55).  La generala será servida cuando en el primer tiro, el jugador sacara los cinco dados del mismo número; ganará elpartido anotándose el máximo puntaje  en los casilleros que no estuvieran cerrados (5 puntos al 1, 10 puntos al 2, 15 puntos al 3, 20 puntos al 4, 25 puntos al 5 y 30 puntos al 6) y los puntajes servidos en los juegos mayores (escalera 25 puntos, foul 35 puntos, poker 45 puntos, generala 55 puntos, doble generala cien (100) puntos).   </p><br>
+		<p>DOBLE GENERALA: Es una segunda Generala lograda en el partido por el mismo participante. Valor cien (100) puntos, sólo podrá anotarse en caso de tener anotada otra Generala. </p><br>
+		<p>JUEGO SERVIDO: Se considerará juego servido, cuando el jugador en su primer tiro, sacara un juego mayor. Si elige seguir tirando, apartará los dados que desee conservar y hará su segundo tiro con los restantes, perdiendo el derecho de anotarse los puntos del Juego Mayor Servido.</p><br>
+		<a href="#" onclick="OcultarReglas()">Ocultar reglas</a>
+	</div>
+	<!-- <div id="jugar" style="display: none">
+		<div>
+			<h1 class="titleh1" align="center">¡Comencemos!</h1><br>
+			<h3 class="subtitleh3" align= "center">¿Cuántos jugadores serán?</h3><br>
+			<div class="box">
+				<center><div id="value"></div></center>
+			</div>
+		<br>
+			<div class="ContainterRange">
+				<input type="range" min="2" max="6" value="2" class="slider" id="slider">
+			</div>
+		</div>
+		<script type="text/javascript">
+			var val=document.getElementById("value");
+			val.innerHTML=slider.value;
+			slider.oninput=function(){
+			val.innerHTML=this.value;
+			}
+		</script>
+
+	</div> -->
+	<div id="AddPlayers" style="display:none">
+		<h2 align= "center">Vamos! ¿Quiénes juegan?</h2><br><br>
+		<div class="contenedor">
+				<div class="columna1">
+					<input type="text" placeholder="Nombre o Inicial =D" class="FormPlayers1" style="width: 80%;margin-left: 10%;margin-bottom: 2%;margin-right: 0;"></input><br>
+					<input type="text" placeholder="Nombre o Inicial ;)" class="FormPlayers2" style="width: 80%;margin-left: 10%;margin-bottom: 2%;margin-right: 0;"></input><br>
+					<input type="text" placeholder="Nombre o Inicial =)" class="FormPlayers3" id="Jugador3oculto" style="width: 80%;margin-left: 10%;margin-bottom: 2%;;display: none;"></input>
+					<input type="text" placeholder="Nombre o Inicial =D" class="FormPlayers4" id="Jugador4oculto" style="width: 80%;margin-left: 10%;margin-bottom: 2%;display: none;"></input>
+					<input type="text" placeholder="Nombre o Inicial ;)" class="FormPlayers5" id="Jugador5oculto" style="width: 80%;margin-left: 10%;margin-bottom: 2%;display: none;"></input>
+					<input type="text" placeholder="Nombre o Inicial =)" class="FormPlayers6" id="Jugador6oculto" style="width: 80%;margin-left: 10%;margin-bottom: 2%;display: none;"></input>
+				</div>
+				<div class="columna2">
+					<input type="button" class="btn-ghost green secundary round" id="botonoculto1agregar" style="width: 100%;margin-bottom: 200%;font-size: 1rem;" value="+"></input><br>
+					<input type="button" class="btn-ghost green secundary round" id="Agregarbtn2Ocultar" style="width: 100%;margin-bottom: 155%;font-size: 1rem;" value="+" onclick="AgregarJugador3()"></input><br>                
+					<input type="button" class="btn-ghost green secundary round" id="botonoculto3agregar" style="width: 100%;margin-bottom: 150%;font-size: 1rem;" value="+" onclick="AgregarJugador4()"></input><br>
+					<input type="button" class="btn-ghost green secundary round" id="botonoculto4agregar" style="width: 100%;margin-bottom: 145%;font-size: 1rem;" value="+" onclick="AgregarJugador5()"></input><br>
+					<input type="button" class="btn-ghost green secundary round" id="botonoculto5agregar" style="width: 100%;margin-bottom: 140%;font-size: 1rem;" value="+" onclick="AgregarJugador6()"></input><br>
+				</div>
+				<div class="columna3">
+					<input type="button" class="btn-ghost red secundary round" id="botonoculto1quitar" style="width: 100%;margin-bottom: 200%;font-size: 1rem;margin-left:30%;" value="-"></input><br>
+					<input type="button" class="btn-ghost red secundary round" id="botonoculto2quitar" style="width: 100%;margin-bottom: 155%;font-size: 1rem;margin-left:30%" value="-"></input><br>
+					<input type="button" class="btn-ghost red secundary round" id="botonoculto3quitar" style="width: 100%;margin-bottom: 149.5%;font-size: 1rem;margin-left:30%" value="+" onclick="QuitarJugador3()"></input><br>
+					<input type="button" class="btn-ghost red secundary round" id="botonoculto4quitar" style="width: 100%;margin-bottom: 145%;font-size: 1rem;margin-left:30%" value="-" onclick="QuitarJugador4()"></input><br>
+					<input type="button" class="btn-ghost red secundary round" id="botonoculto5quitar" style="width: 100%;margin-bottom: 145%;font-size: 1rem;margin-left:30%" value="-" onclick="QuitarJugador5()"></input><br>
+					<input type="button" class="btn-ghost red secundary round" id="botonoculto6quitar" style="width: 100%;margin-bottom: 140%;font-size: 1rem;margin-left:30%" value="-" onclick="QuitarJugador6()"></input><br>         
+				</div>   
+	 
+			</div> 
+		<!-- <div class="grid-container">
+				<input type="text" placeholder="Jugador #1" class="FormPlayers1" id="Player1"></input>
+				<a type="button" id="AddPlayer1" class="btn-ghost green secundary round" style="display:none">AGREGAR</a>
+				<a type="button" id="OcultarPlayer1" class="btn-ghost green secundary round" style="display:none">QUITAR</a>
+				<input type="text" placeholder="Jugador #2"class="FormPlayers2" id="Player2" ></input>
+				<a type="button" id="AddPlayer2" class="btn-ghost green secundary round" style="display:none">AGREGAR</a>
+				<a type="button" id="OcultarPlayer2" class="btn-ghost green secundary round" style="display:none">QUITAR</a>
+				<input type="text" placeholder="Jugador #3"class="FormPlayers3" id="Player3" style="display:none"></input>
+				<a type="button" id="AddPlayer3" class="btn-ghost green secundary round" onclick="MostrarJugador3();">AGREGAR</a>
+				<a type="button" id="AddPlayer3" class="btn-ghost green secundary round" onclick="MostrarJugador3();">QUITAR</a>
+				<input type="text" placeholder="Jugador #4"class="FormPlayers4" id="Player4" style="display:none"></input>
+				<a type="button" id="AddPlayer4" class="btn-ghost green secundary round" style="display:none" onclick="MostrarJugador4();">AGREGAR</a>
+				<a type="button" id="AddPlayer4" class="btn-ghost green secundary round" style="display:none" onclick="OcultarJugador4();">QUITAR</a>
+				<input type="text" placeholder="Jugador #5"class="FormPlayers5" id="Player5" style="display:none"></input>
+				<a type="button" id="AddPlayer5" class="btn-ghost green secundary round" style="display:none"onclick="MostrarJugador5();">AGREGAR</a>
+				<a type="button" id="AddPlayer5" class="btn-ghost green secundary round" style="display:none"onclick="OcultarJugador5();">QUITAR</a>
+				<input type="text" placeholder="Jugador #6"class="FormPlayers6" id="Player6" style="display:none"></input>
+				<a type="button" id="AddPlayer6" class="btn-ghost green secundary round" style="display:none"onclick="OcultarJugador6();">QUITAR</a>
+		</div> -->
+		<div class="BotonJugar">
+				<a type="button" href="#barramenu" class="btn-ghost green secundary round" onclick="OcultarAnotador();OcultarCantJugadores();CapturarPlayer1();CapturarPlayer2();CapturarPlayer3();CapturarPlayer4();CapturarPlayer5();CapturarPlayer6();MostrarAnotador();OcultarCantJugadores();">A jugar!</a>
+		</div>	
+	</div>
+<div id="anotador" style="display:none">
+	<div class="ContainerAnotador">
+	<div class="Columna1">
+		<p class="Celdas" type="text" style="height:25px;"></p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">1</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">2</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">3</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;;">4</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">5</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">6</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">Escalera</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">Full</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">Poker</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">Generala</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">D. Generala</p>
+		<hr style="color: #0056b2;" />
+		<p class="Celdas" type="text" style="height:25px;">TOTAL</p>
+	</div>
+	<hr style="color: #0056b2;" />
+	<div class="Columna2" style="text-align:center;">
+		<p class="SumaJugador1" type="text" style="height:25px"><span id="Jugador1"></span></p>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px">
+			<option></option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px">
+			<option></option>
+			<option>2</option>
+			<option>4</option>
+			<option>6</option>
+			<option>8</option>
+			<option>10</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>3</option>
+				<option>6</option>
+				<option>9</option>
+				<option>12</option>
+				<option>15</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>4</option>
+				<option>8</option>
+				<option>12</option>
+				<option>16</option>
+				<option>20</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>5</option>
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>6</option>
+				<option>12</option>
+				<option>18</option>
+				<option>24</option>
+				<option>30</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" id="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" id="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>30</option>
+				<option>35</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" id="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>40</option>
+				<option>45</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>50</option>
+				<option>55</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador1" id="SumaJugador1" type="text" onchange="sumar1();" style="height:25px;">
+				<option></option>
+				<option>60</option>
+				<option>65</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<span id="spTotal1" style="height:25px"></span>
+	</div>
+	<hr style="color: #0056b2;" />
+	<div class="Columna2" style="text-align:center;">
+		<p class="SumaJugador2" type="text" style="height:25px"><span id="Jugador2"></span></p>
+		<hr style="color: #0056b2;" />
+		<select class="Celdas" type="text" onchange="sumar2();" style="height:25px">
+			<option></option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px">
+			<option></option>
+			<option>2</option>
+			<option>4</option>
+			<option>6</option>
+			<option>8</option>
+			<option>10</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>3</option>
+				<option>6</option>
+				<option>9</option>
+				<option>12</option>
+				<option>15</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>4</option>
+				<option>8</option>
+				<option>12</option>
+				<option>16</option>
+				<option>20</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>5</option>
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>6</option>
+				<option>12</option>
+				<option>18</option>
+				<option>24</option>
+				<option>30</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>30</option>
+				<option>35</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>40</option>
+				<option>45</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>50</option>
+				<option>55</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador2" type="text" onchange="sumar2();" style="height:25px;">
+				<option></option>
+				<option>60</option>
+				<option>65</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<span id="spTotal2" style="height:25px"></span>
+	</div>
+	<hr style="color: #0056b2;" />
+	<div class="Columna2" style="text-align:center;">
+		<p class="SumaJugador3"type="text" style="height:25px"><span id="Jugador3"></span></p>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px">
+			<option></option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px">
+			<option></option>
+			<option>2</option>
+			<option>4</option>
+			<option>6</option>
+			<option>8</option>
+			<option>10</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>3</option>
+				<option>6</option>
+				<option>9</option>
+				<option>12</option>
+				<option>15</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>4</option>
+				<option>8</option>
+				<option>12</option>
+				<option>16</option>
+				<option>20</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>5</option>
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>6</option>
+				<option>12</option>
+				<option>18</option>
+				<option>24</option>
+				<option>30</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>30</option>
+				<option>35</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>40</option>
+				<option>45</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>50</option>
+				<option>55</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador3" type="text" onchange="sumar3();" style="height:25px;">
+				<option></option>
+				<option>60</option>
+				<option>65</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<span id="spTotal3" style="height:25px"></span>
+	</div>
+	<hr style="color: #0056b2;" />
+	<div class="Columna2" style="text-align:center;">
+		<p class="SumaJugador4"type="text" style="height:25px"><span id="Jugador4"></span></p>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px">
+			<option></option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px">
+			<option></option>
+			<option>2</option>
+			<option>4</option>
+			<option>6</option>
+			<option>8</option>
+			<option>10</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>3</option>
+				<option>6</option>
+				<option>9</option>
+				<option>12</option>
+				<option>15</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>4</option>
+				<option>8</option>
+				<option>12</option>
+				<option>16</option>
+				<option>20</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>5</option>
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>6</option>
+				<option>12</option>
+				<option>18</option>
+				<option>24</option>
+				<option>30</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>30</option>
+				<option>35</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>40</option>
+				<option>45</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>50</option>
+				<option>55</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador4" type="text" onchange="sumar4();" style="height:25px;">
+				<option></option>
+				<option>60</option>
+				<option>65</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<span id="spTotal4" style="height:25px"></span>
+	</div>
+	<hr style="color: #0056b2;" />
+	<div class="Columna2" style="text-align:center;">
+		<p class="SumaJugador5"type="text" style="height:25px"><span id="Jugador5"></span></p>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px">
+			<option></option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px">
+			<option></option>
+			<option>2</option>
+			<option>4</option>
+			<option>6</option>
+			<option>8</option>
+			<option>10</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>3</option>
+				<option>6</option>
+				<option>9</option>
+				<option>12</option>
+				<option>15</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>4</option>
+				<option>8</option>
+				<option>12</option>
+				<option>16</option>
+				<option>20</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>5</option>
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>6</option>
+				<option>12</option>
+				<option>18</option>
+				<option>24</option>
+				<option>30</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>30</option>
+				<option>35</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>40</option>
+				<option>45</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>50</option>
+				<option>55</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador5" type="text" onchange="sumar5();" style="height:25px;">
+				<option></option>
+				<option>60</option>
+				<option>65</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<span id="spTotal5" style="height:25px"></span>
+	</div>
+	<hr style="color: #0056b2;" />
+	<div class="Columna2" style="text-align:center;">
+		<p class="SumaJugador6"type="text" style="height:25px"><span id="Jugador6"></span></p>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px">
+			<option></option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px">
+			<option></option>
+			<option>2</option>
+			<option>4</option>
+			<option>6</option>
+			<option>8</option>
+			<option>10</option>
+			<option>X</option>
+		</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>3</option>
+				<option>6</option>
+				<option>9</option>
+				<option>12</option>
+				<option>15</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>4</option>
+				<option>8</option>
+				<option>12</option>
+				<option>16</option>
+				<option>20</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>5</option>
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>6</option>
+				<option>12</option>
+				<option>18</option>
+				<option>24</option>
+				<option>30</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>20</option>
+				<option>25</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>30</option>
+				<option>35</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>40</option>
+				<option>45</option>
+				<option>X</option>
+			</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>50</option>
+				<option>55</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<select class="SumaJugador6" type="text" onchange="sumar6();" style="height:25px;">
+				<option></option>
+				<option>60</option>
+				<option>65</option>
+				<option>X</option>
+				</select>
+		<hr style="color: #0056b2;" />
+		<span id="spTotal6" style="height:25px"></span>
+	</div>
+</div>
+</div>
+<footer style="text-align: center;color: grey;">Creado por Fernando Badell</footer>
+<br>
+
+	<script src="js/script.js"></script>
+	</body>
+</html>
